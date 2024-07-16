@@ -25,7 +25,7 @@ namespace HospitalAPI.Controllers
         }
 
         [HttpGet("[action]/{id:int}")]
-        public async Task<ActionResult<PatientListDto>> GetById(int id)
+        public async Task<ActionResult<PatientListDto>> GetById([FromRoute] int id)
         {
             var patient = await _patientService.GetById(id);
             if (patient is null)
@@ -36,7 +36,7 @@ namespace HospitalAPI.Controllers
         }
 
         [HttpDelete("[action]/{id:int}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete([FromRoute] int id)
         {
             var deleted = await _patientService.Delete(id);
             if (!deleted)
@@ -47,7 +47,7 @@ namespace HospitalAPI.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<bool>> Add(PatientCreateDto patient)
+        public async Task<ActionResult<bool>> Add([FromBody] PatientCreateDto patient)
         {
             var created = await _patientService.Add(patient);
             if (!created)
@@ -58,7 +58,7 @@ namespace HospitalAPI.Controllers
         }
 
         [HttpPut("[action]")]
-        public async Task<ActionResult<bool>> Update(PatientUpdateDto patient)
+        public async Task<ActionResult<bool>> Update([FromBody] PatientUpdateDto patient)
         {
             var updated = await _patientService.Update(patient);
             if(!updated)
